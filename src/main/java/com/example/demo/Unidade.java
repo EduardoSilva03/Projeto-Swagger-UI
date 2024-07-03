@@ -8,7 +8,6 @@ public class Unidade {
     private String email;
     private String site;
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }

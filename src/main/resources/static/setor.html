@@ -13,7 +13,7 @@
     
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-          <a class="navbar-brand" href="/Recursos Humanos/index.php">Recursos Humanos</a>
+          <a class="navbar-brand" href="/login.html">Recursos Humanos</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -28,38 +28,8 @@
                     <li><a class="dropdown-item" href="/setor.html">Setor</a></li>
                   </ul>
                 </li>
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Profissional
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="/Recursos Humanos/pessoa_fisica.php">Pessoa Física</a></li>
-                  </ul>
-                </li>
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Controle
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="/Recursos Humanos/controle_ponto.php">Controle de Ponto</a></li>
-                  </ul>
-                </li>
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Consultar
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="/Recursos Humanos/consulta_pessoa_fisica.php">Pessoa Física</a></li>
-                    <li><a class="dropdown-item" href="/Recursos Humanos/consulta_unidade.php">Unidade</a></li>
-                    <li><a class="dropdown-item" href="/Recursos Humanos/consulta_setor.php">Setor</a></li>
-                  </ul>
-                </li>
               </ul>
           </div>
-          <!-- Botão de logoff -->
-          <form class="d-flex" method="POST">
-            <button class="btn btn-outline-light me-2" type="submit" name="logout">Logoff</button>
-          </form>
         </div>
       </nav>
   
@@ -85,7 +55,6 @@
             <div class="col-sm-4">
               <label for="unidade">Unidade:</label>
               <select class="form-control border border-dark" aria-label="unidade" name="unidade" id="unidade">
-                <!-- Options will be populated dynamically -->
               </select>
             </div>
         </div>
@@ -103,7 +72,6 @@
     <br>
 
     <div id="registros">
-        <!-- Lista de registros será preenchida dinamicamente -->
     </div>
 
     <script>

@@ -3,9 +3,8 @@ package com.example.demo;
 public class Setor {
     private Long id;
     private String nome;
-    private Long unidadeId; // Foreign key to Unidade
+    private Long unidadeId;
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }
