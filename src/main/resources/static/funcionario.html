@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Funcionário</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="/Recursos Humanos/js/jquery-3.7.1.js"></script>
+    <script type="text/javascript" src="/Recursos Humanos/js/main.js"></script>
+  </head>
+<body class="p-3 m-0 border-0 bd-example m-0 border-0">
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/login.html">Recursos Humanos</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Administrativo
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="/unidade.html">Unidade</a></li>
+                    <li><a class="dropdown-item" href="/setor.html">Setor</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Pessoa Física
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                      <li><a class="dropdown-item" href="/funcionario.html">Funcionário</a></li>
+                    </ul>
+                </li>
+              </ul>
+          </div>
+        </div>
+      </nav>
+  
+<br>
+
+<b class="d-flex justify-content-center">Funcionário</b><br>
+
+    <form id="funcionarioForm">
+        <div class="row g-3 d-flex justify-content-center">
+            <div class="col-sm-1">
+                <label for="id">ID:</label>
+                <input type="text" class="form-control border border-dark" aria-label="id" name="id" id="id">
+            </div>
+        </div>
+        
+        <br>
+        
+        <div class="row g-3 d-flex justify-content-center">
+            <div class="col-sm-2">
+                <label for="nome">Nome:</label>
+                <input type="text" class="form-control border border-dark" aria-label="nome" name="nome" id="nome">
+            </div>
+            <div class="col-sm-2">
+                <label for="sobrenome">Sobrenome:</label>
+                <input type="text" class="form-control border border-dark" aria-label="sobrenome" name="sobrenome" id="sobrenome">
+            </div>
+        </div>
+      
+      <br>
+
+      <div class="row g-3 d-flex justify-content-center">
+        <div class="col-sm-2">
+            <label for="cpf">Cpf:</label>
+            <input type="text" class="form-control border border-dark" aria-label="cpf" name="cpf" id="cpf">
+        </div>
+        <div class="col-sm-2">
+            <label for="rg">Rg:</label>
+            <input type="text" class="form-control border border-dark" aria-label="rg" name="rg" id="rg">
+        </div>
+        </div>
+  
+        <br>
+
+        <div class="row g-3 d-flex justify-content-center">
+            <div class="col-sm-2">
+                <label for="unidade">Unidade:</label>
+                <select class="form-control border border-dark" aria-label="unidade" name="unidade" id="unidade">
+                </select>
+            </div>
+            <div class="col-sm-2">
+                <label for="setor">Setor:</label>
+                <select class="form-control border border-dark" aria-label="setor" name="setor" id="setor">
+                </select>
+            </div>
+            </div>
+      
+        <br>
+
+        <div class="row g-3 d-flex justify-content-center">
+            <div class="col-sm-4">
+                <button type="button" onclick="saveFuncionario()" class="btn btn-primary">Salvar</button>
+                <button type="button" onclick="updateFuncionario()" class="btn btn-secondary">Atualizar</button>
+            </div>
+        </div>
+        </form>
+
+        <br>
+
+        <div id="registros">
+        </div>
+    
+        <script>
+            function carregarUnidades() {
+                fetch('/api/unidades')
+                .then(response => response.json())
+                .then(data => {
+                    const unidadeSelect = document.getElementById('unidade');
+                    unidadeSelect.innerHTML = '';
+    
+                    data.forEach(unidade => {
+                        const option = document.createElement('option');
+                        option.value = unidade.id;
+                        option.text = unidade.nome;
+                        unidadeSelect.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+            }
+
+            function carregarSetores() {
+                fetch('/api/setores')
+                .then(response => response.json())
+                .then(data => {
+                    const setorSelect = document.getElementById('setor');
+                    setorSelect.innerHTML = '';
+    
+                    data.forEach(setor => {
+                        const option = document.createElement('option');
+                        option.value = setor.id;
+                        option.text = setor.nome;
+                        setorSelect.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+            }
+    
+            function carregarRegistros() {
+                fetch('/api/funcionarios')
+                .then(response => response.json())
+                .then(data => {
+                    const registrosDiv = document.getElementById('registros');
+                    registrosDiv.innerHTML = '';
+    
+                    data.forEach(funcionario => {
+                        const itemDiv = document.createElement('div');
+                        itemDiv.innerHTML = `
+                            <p>ID: ${funcionario.id}, Nome: ${funcionario.nome}, Sobrenome: ${funcionario.sobrenome}, Cpf: ${funcionario.cpf}, Rg: ${funcionario.rg}, Unidade ID: ${funcionario.unidadeId}, Setor ID: ${funcionario.setorId}</p>
+                            <button type="button" onclick="carregarDados(${funcionario.id}, '${funcionario.nome}', '${funcionario.sobrenome}', '${funcionario.cpf}', '${funcionario.rg}', '${funcionario.unidadeId}', ${funcionario.setorId})">Editar</button>
+                            <button type="button" onclick="deleteFuncionario(${funcionario.id})">Deletar</button>
+                            <hr>
+                        `;
+                        registrosDiv.appendChild(itemDiv);
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+            }
+    
+            function carregarDados(id, nome, sobrenome, cpf, rg, unidadeId, setorId) {
+                document.getElementById('id').value = id;
+                document.getElementById('nome').value = nome;
+                document.getElementById('sobrenome').value = sobrenome;
+                document.getElementById('cpf').value = cpf;
+                document.getElementById('rg').value = rg;
+                document.getElementById('unidade').value = unidadeId;
+                document.getElementById('setor').value = setorId;
+            }
+    
+            function saveFuncionario() {
+                const id = document.getElementById('id').value;
+                const nome = document.getElementById('nome').value;
+                const sobrenome = document.getElementById('sobrenome').value;
+                const cpf = document.getElementById('cpf').value;
+                const rg = document.getElementById('rg').value;
+                const unidadeId = document.getElementById('unidade').value;
+                const setorId = document.getElementById('setor').value;
+    
+                const funcionario = { id: parseInt(id), nome: nome, sobrenome: sobrenome, cpf: cpf, rg: rg, unidadeId: parseInt(unidadeId), setorId: parseInt(setorId) };
+    
+                fetch('/api/funcionarios', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(funcionario)
+                })
+                .then(response => response.text())
+                .then(data => {
+                    alert(data);
+                    carregarRegistros();
+                })
+                .catch(error => console.error('Error:', error));
+            }
+    
+            function updateFuncionario() {
+                const id = document.getElementById('id').value;
+                const nome = document.getElementById('nome').value;
+                const sobrenome = document.getElementById('sobrenome').value;
+                const cpf = document.getElementById('cpf').value;
+                const rg = document.getElementById('rg').value;
+                const unidadeId = document.getElementById('unidade').value;
+                const setorId = document.getElementById('setor').value;
+    
+                const funcionario = { id: parseInt(id), nome: nome, sobrenome: sobrenome, cpf: cpf, rg: rg, unidadeId: parseInt(unidadeId), setorId: parseInt(setorId) };
+    
+                fetch('/api/funcionarios/' + id, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(funcionario)
+                })
+                .then(response => response.text())
+                .then(data => {
+                    alert(data);
+                    carregarRegistros();
+                })
+                .catch(error => console.error('Error:', error));
+            }
+    
+            function deleteFuncionario(id) {
+                fetch('/api/funcionarios/' + id, { method: 'DELETE' })
+                .then(response => response.text())
+                .then(data => {
+                    alert(data);
+                    carregarRegistros();
+                })
+                .catch(error => console.error('Error:', error));
+            }
+    
+            document.addEventListener('DOMContentLoaded', () => {
+                carregarUnidades();
+                carregarSetores();
+                carregarRegistros();
+            });
+        </script>
+
+  
